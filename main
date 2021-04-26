@@ -3,12 +3,22 @@ import sys
 
 text1= "Welcome to the Arcade"
 text2="Here are the instructions"
+askingforname="Hi Player please enter your name"
 instructions= ""
 
 for char in text1:
     sys.stdout.write(char)
     time.sleep(0.02)
 sys.stdout.write('\n')
+
+for char in askingforname:
+    sys.stdout.write(char)
+    time.sleep(0.02)
+sys.stdout.write('\n')
+
+name=input("enter name here---> ")
+
+
 
 for char in text2:
     sys.stdout.write(char)
