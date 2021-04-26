@@ -2,9 +2,21 @@ import time
 import sys
 
 text1= "Welcome to the Arcade"
-text2=
+text2="Here are the instructions"
 instructions= ""
 
 for char in text1:
     sys.stdout.write(char)
-    time.sleep(0.2)
+    time.sleep(0.02)
+sys.stdout.write('\n')
+
+for char in text2:
+    sys.stdout.write(char)
+    time.sleep(0.02)
+sys.stdout.write('\n')
+
+for char in instructions:
+    sys.stdout.write(char)
+    time.sleep(0.02)
+sys.stdout.write('\n')
+
