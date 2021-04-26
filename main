@@ -1,1 +1,10 @@
+import time
+import sys
 
+text1= "Welcome to the Arcade"
+text2=
+instructions= ""
+
+for char in text1:
+    sys.stdout.write(char)
+    time.sleep(0.2)
