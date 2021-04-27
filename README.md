@@ -1,6 +1,6 @@
 # Arcade
 school project
-arcade has 696
+arcade has 500
 points total
 5 games
 each game has 100 points each
@@ -9,5 +9,7 @@ list of games:-
   -hangman
   -memory game
   -roman number conversion
+  -riddle game 
+  -*maybe a graph plot game which randomises the graphs of simple functions*
 
   
