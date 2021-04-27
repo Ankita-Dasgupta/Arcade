@@ -50,8 +50,8 @@ for var in range(10):
                 i = i+1
 
      if player==res:
-         print("good job now fuck off")
+         print("good job")
      else:
-         print("you suck")
+         print("wrong")
 
      break
