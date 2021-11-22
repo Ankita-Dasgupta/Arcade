@@ -1,5 +1,15 @@
 import random
-word_list = [
+import time
+
+
+def main():
+    global count
+    global display
+    global word
+    global already_guessed
+    global length
+    global play_game
+    word_list = [
     'wares',
     'soup',
     'mount',
@@ -12,111 +22,125 @@ word_list = [
     'crust',
     'dent'
     ]
-
-def get_word():
-    word = random.choice(word_list)
-    return word.upper()
-
-def play(word):
-    word_completion = "_ " * len(word)
-    guessed = False
-    check=[]
-    guessed_letters = []
-    guessed_words = []
-    wrongs = 6
-    print("Let's play Hangman!")
-    print(hangmanpics(wrongs))
-    print(word_completion)
-    guess = input()
-
-    while wrongs>0 and guessed==False:
-        guess = input("Please guess a letter or word: ").upper()
-        if len(guess) == 1 and guess.isalpha(): # isalpha() determines if its alphabets or not
-            if guess in guessed_letters:
-                print("You already guessed the letter ", guess)
-            elif guess not in word:
-                print(guess, "is not in the word.")
-                wrongs -= 1
-                guessed_letters.append(guess)
-            elif len(guess)!=1 and guess!=word:
-                print("that is not the word")
-                wrongs -=1
-            else:
-                print("you guessed the word")
-
-
-
-
-def hangmanpics(wrongs):
-    stages = [
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |     / \\
-                   -
-                """,
-
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |     / 
-                   -
-                """,
-
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |      
-                   -
-                """,
-                # head, torso, and one arm
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|
-                   |      |
-                   |     
-                   -
-                """,
-
-                """
-                   --------
-                   |      |
-                   |      O
-                   |      |
-                   |      |
-                   |     
-                   -
-                """,
-
-                """
-                   --------
-                   |      |
-                   |      O
-                   |    
-                   |      
-                   |     
-                   -
-                """,
-
-                """
-                   --------
-                   |      |
-                   |      
-                   |    
-                   |      
-                   |     
-                   -
-                """
-    ]
-    return stages[wrongs]
+    word = random.choice(words_list)
+    length = len(word)
+    count = 0
+    display = '_' * length
+    already_guessed = []
+    play_game = ""
+ 
+# A loop to re-execute the game when the first round ends:
+ 
+def play_loop():
+    global play_game
+    play_game = input("Do You want to play again? y = yes, n = no \n")
+    while play_game not in ["y", "n","Y","N"]:
+        play_game = input("Do You want to play again? y = yes, n = no \n")
+    if play_game == "y":
+        main()
+    elif play_game == "n":
+        print("Thanks For Playing! We expect you back again!")
+        exit()
+ 
+# Initializing all the conditions required for the game:
+def hangman():
+    global count
+    global display
+    global word
+    global already_guessed
+    global play_game
+    limit = 5
+    guess = input("This is the Hangman Word: " + display + " Enter your guess: \n")
+    guess = guess.strip()
+    if len(guess.strip()) == 0 or len(guess.strip()) &gt;= 2 or guess &lt;= "9":
+        print("Invalid Input, Try a letter\n")
+        hangman()
+ 
+ 
+    elif guess in word:
+        already_guessed.extend(&#91;guess])
+        index = word.find(guess)
+        word = word&#91;:index] + "_" + word&#91;index + 1:]
+        display = display&#91;:index] + guess + display&#91;index + 1:]
+        print(display + "\n")
+ 
+    elif guess in already_guessed:
+        print("Try another letter.\n")
+ 
+    else:
+        count += 1
+ 
+        if count == 1:
+            time.sleep(1)
+            print("   _____ \n"
+                  "  |      \n"
+                  "  |      \n"
+                  "  |      \n"
+                  "  |      \n"
+                  "  |      \n"
+                  "  |      \n"
+                  "__|__\n")
+            print("Wrong guess. " + str(limit - count) + " guesses remaining\n")
+ 
+        elif count == 2:
+            time.sleep(1)
+            print("   _____ \n"
+                  "  |     | \n"
+                  "  |     |\n"
+                  "  |      \n"
+                  "  |      \n"
+                  "  |      \n"
+                  "  |      \n"
+                  "__|__\n")
+            print("Wrong guess. " + str(limit - count) + " guesses remaining\n")
+ 
+        elif count == 3:
+           time.sleep(1)
+           print("   _____ \n"
+                 "  |     | \n"
+                 "  |     |\n"
+                 "  |     | \n"
+                 "  |      \n"
+                 "  |      \n"
+                 "  |      \n"
+                 "__|__\n")
+           print("Wrong guess. " + str(limit - count) + " guesses remaining\n")
+ 
+        elif count == 4:
+            time.sleep(1)
+            print("   _____ \n"
+                  "  |     | \n"
+                  "  |     |\n"
+                  "  |     | \n"
+                  "  |     O \n"
+                  "  |      \n"
+                  "  |      \n"
+                  "__|__\n")
+            print("Wrong guess. " + str(limit - count) + " last guess remaining\n")
+ 
+        elif count == 5:
+            time.sleep(1)
+            print("   _____ \n"
+                  "  |     | \n"
+                  "  |     |\n"
+                  "  |     | \n"
+                  "  |     O \n"
+                  "  |    /|\ \n"
+                  "  |    / \ \n"
+                  "__|__\n")
+            print("Wrong guess. You are hanged!!!\n")
+            print("The word was:",already_guessed,word)
+            play_loop()
+ 
+    if word == '_' * length:
+        print("Congrats! You have guessed the word correctly!")
+        play_loop()
+ 
+    elif count != limit:
+        hangman()
+ 
+ 
+main()
+ 
+ 
+hangman()
