@@ -1,4 +1,3 @@
-
 *your name* we are in trouble greater than this kingdom has ever seen, the princess has been captured!
 Oh our hero,*your name* can you help us save the princess?
 You shall find many adversary in the path you take and do you have the will and courage to defeat the ruthless dragon and rescue the princess?
@@ -12,3 +11,24 @@ You will recieve upto 100 credits every time you beat a monster depending on you
 
 *your name*, I wish you the best on your journey, I will guide you to the monsters and help you defeat them.
 Tip: Earn more credits to achieve a high score, highest score is 500.
+
+How to play Hangman?
+Guess letters to fill in the blanks before your little man gets hung out to dry.
+
+Requires: Common sense
+
+Hangman Game play:
+The evil monster thinks of a word,
+You try to guess what it is one letter at a time.
+The monster gives you a number of dashes equivalent to the number of letters in the word.
+If you suggests a letter that occurs in the word, the game fills in the blanks with that letter in the right places.
+If the word does not contain the suggested letter, the other player draws one element of a hangman’s gallows.
+As the game progresses, a segment of the gallows and of a victim is added for every suggested letter not in the word.
+The number of incorrect guesses before the game is six,
+but completing a character in a noose provides a minimum of six wrong answers until the game ends.
+If the correct answer has been guessed it moves forward to the next game.
+
+Roman Number Game:
+There are randomised roman numeral letters that will be displayed on the screen
+Your objective is to guess the correct number and if you get all the answers right
+you shall move on to the next level with the maximum number of points.
