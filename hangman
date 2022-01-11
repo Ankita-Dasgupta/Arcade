@@ -1,146 +1,157 @@
-import random
-import time
-
-
 def main():
-    global count
-    global display
-    global word
-    global already_guessed
-    global length
-    global play_game
-    word_list = [
-    'wares',
-    'soup',
-    'mount',
-    'extend',
-    'brown',
-    'expert',
-    'tired',
-    'humidity',
-    'backpack',
-    'crust',
-    'dent'
-    ]
-    word = random.choice(words_list)
-    length = len(word)
-    count = 0
-    display = '_' * length
-    already_guessed = []
-    play_game = ""
- 
-# A loop to re-execute the game when the first round ends:
- 
-def play_loop():
-    global play_game
-    play_game = input("Do You want to play again? y = yes, n = no \n")
-    while play_game not in ["y", "n","Y","N"]:
-        play_game = input("Do You want to play again? y = yes, n = no \n")
-    if play_game == "y":
-        main()
-    elif play_game == "n":
-        print("Thanks For Playing! We expect you back again!")
-        exit()
- 
-# Initializing all the conditions required for the game:
-def hangman():
-    global count
-    global display
-    global word
-    global already_guessed
-    global play_game
-    limit = 5
-    guess = input("This is the Hangman Word: " + display + " Enter your guess: \n")
-    guess = guess.strip()
-    if len(guess.strip()) == 0 or len(guess.strip()) &gt;= 2 or guess &lt;= "9":
-        print("Invalid Input, Try a letter\n")
+    c=3
+    def hangman():
+        import random
+        '''
+        f = open("t1.txt")
+        # need to import text file onto git?
+        word_list = f.readlines()
+        '''
+        word_list=["School", "Pencil", "Toys", "Notebook"]
+        choice = random.choice(word_list)
+        choice_upper = choice.upper()
+
+        guessed = False
+        guessed_letters = []
+        guessed_words = []
+        tries = 6
+        print("Ready to play Hangman round", c, "?")
+
+        def hangman_display(tries):
+            stages = [  # final state: head, torso, both arms, and both legs
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     / \\
+                   -
+                """,
+                # head, torso, both arms, and one leg
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     / 
+                   -
+                """,
+                # head, torso, and both arms
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |      
+                   -
+                """,
+                # head, torso, and one arm
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|
+                   |      |
+                   |     
+                   -
+                """,
+                # head and torso
+                """
+                   --------
+                   |      |
+                   |      O
+                   |      |
+                   |      |
+                   |     
+                   -
+                """,
+                # head
+                """
+                   --------
+                   |      |
+                   |      O
+                   |    
+                   |      
+                   |     
+                   -
+                """,
+                # initial empty state
+                """
+                   --------
+                   |      |
+                   |      
+                   |    
+                   |      
+                   |     
+                   -
+                """
+            ]
+            return stages[tries]
+        underscore= "_" * len(choice_upper)
+        underscores = "_ " * len(choice_upper)
+        print(hangman_display(tries))
+        print(underscores)
+        while not guessed and tries > 0:
+            guess = input("Enter a letter or a word ")  # user guess
+            guess_upper = guess.upper()  # guess in upper to prevent errors
+
+            if len(guess) == 1 and guess_upper.isalpha():  # if letter
+                '''
+                error handling if guess length is 1 it is a digit 
+                or alpha and isalpha checks for simply alpha
+                '''
+
+                if guess_upper in guessed_letters:
+                    print("you have already guessed this letter")
+
+                elif guess_upper not in choice_upper:
+                    tries = tries - 1
+                    guessed_letters.append(guess_upper)
+                    print(guess, "is not in the word")
+
+                else:  # final option- correct guess
+                    print("good job", guess_upper, "is in word")
+                    underscore_change = list(underscore)
+                    placeholder = []
+                    index=-1
+                    for i in choice_upper:
+                        index=index+1
+                        if guess_upper == i:
+                            placeholder.append(guess_upper)
+                        else:
+                            placeholder.append(underscore_change[index])
+                    space = " "
+                    underscores = (space.join(placeholder))
+                    print(underscores)
+
+            elif len(guess) == len(choice_upper) and guess.isalpha():
+                if guess_upper in guessed_words:
+                    print("you already guessed that word!")
+                elif guess_upper != choice_upper:
+                    print(guess, "is not the word")
+                    tries = tries - 1
+                else:
+                    guessed = True
+                    underscores = choice_upper
+
+            else:
+                print("Not a valid answer")
+
+            print(underscores)
+            print("you have", tries, "tries left")
+            print(hangman_display(tries))
+            if guessed==True:
+                print("Well done you won!")
+                break
+
+        # guess over display where the user is at right now
+        print(hangman_display(tries))
+        print(underscores)
+    while c>0:
         hangman()
- 
- 
-    elif guess in word:
-        already_guessed.extend(&#91;guess])
-        index = word.find(guess)
-        word = word&#91;:index] + "_" + word&#91;index + 1:]
-        display = display&#91;:index] + guess + display&#91;index + 1:]
-        print(display + "\n")
- 
-    elif guess in already_guessed:
-        print("Try another letter.\n")
- 
-    else:
-        count += 1
- 
-        if count == 1:
-            time.sleep(1)
-            print("   _____ \n"
-                  "  |      \n"
-                  "  |      \n"
-                  "  |      \n"
-                  "  |      \n"
-                  "  |      \n"
-                  "  |      \n"
-                  "__|__\n")
-            print("Wrong guess. " + str(limit - count) + " guesses remaining\n")
- 
-        elif count == 2:
-            time.sleep(1)
-            print("   _____ \n"
-                  "  |     | \n"
-                  "  |     |\n"
-                  "  |      \n"
-                  "  |      \n"
-                  "  |      \n"
-                  "  |      \n"
-                  "__|__\n")
-            print("Wrong guess. " + str(limit - count) + " guesses remaining\n")
- 
-        elif count == 3:
-           time.sleep(1)
-           print("   _____ \n"
-                 "  |     | \n"
-                 "  |     |\n"
-                 "  |     | \n"
-                 "  |      \n"
-                 "  |      \n"
-                 "  |      \n"
-                 "__|__\n")
-           print("Wrong guess. " + str(limit - count) + " guesses remaining\n")
- 
-        elif count == 4:
-            time.sleep(1)
-            print("   _____ \n"
-                  "  |     | \n"
-                  "  |     |\n"
-                  "  |     | \n"
-                  "  |     O \n"
-                  "  |      \n"
-                  "  |      \n"
-                  "__|__\n")
-            print("Wrong guess. " + str(limit - count) + " last guess remaining\n")
- 
-        elif count == 5:
-            time.sleep(1)
-            print("   _____ \n"
-                  "  |     | \n"
-                  "  |     |\n"
-                  "  |     | \n"
-                  "  |     O \n"
-                  "  |    /|\ \n"
-                  "  |    / \ \n"
-                  "__|__\n")
-            print("Wrong guess. You are hanged!!!\n")
-            print("The word was:",already_guessed,word)
-            play_loop()
- 
-    if word == '_' * length:
-        print("Congrats! You have guessed the word correctly!")
-        play_loop()
- 
-    elif count != limit:
-        hangman()
- 
- 
+        c=c-1
+
 main()
- 
- 
-hangman()
