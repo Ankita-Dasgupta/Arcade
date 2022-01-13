@@ -151,7 +151,7 @@ def main():
                 else:
                     guessed = True
                     underscores = choice_upper
-                underscores = ' '.join(placeholder)
+                #underscores = ' '.join(placeholder)
                 print(underscores)
             else:
                 tries = tries -1;
