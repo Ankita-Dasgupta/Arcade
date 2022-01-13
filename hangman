@@ -94,7 +94,7 @@ def main():
         underscores = "_" * len(choice_upper)
 
         print(hangman_display(tries))
-        print(underscores)
+        print("_ " * len(choice_upper))
         underscore_change = list(underscores)
         while not guessed and tries > 0:
             guess = input("Enter a letter or a word ")  # user guess
@@ -152,9 +152,9 @@ def main():
                     guessed = True
                     underscores = choice_upper
                 #underscores = ' '.join(placeholder)
-                print(underscores)
+                print(" ".join(underscores))
             else:
-                tries = tries -1;
+                tries = tries -1
                 print("Not a valid answer")
 
 
@@ -176,3 +176,4 @@ def main():
         c=c+1
 
 main()
+
