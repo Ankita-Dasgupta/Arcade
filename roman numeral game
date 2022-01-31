@@ -21,7 +21,7 @@ def value(n):
 for var in range(10):
     roman= "none"
 
-    player=random.randrange(1,100)
+    player=random.randrange(1,1000)
     print(player,"convert this number to roman")
     converted=input("converted number")
     while roman != "0":
