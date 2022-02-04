@@ -2,12 +2,10 @@ def main():
     c=0
     def hangman():
         import random
-        '''
-        f = open("t1.txt")
+
+        f = open("hangman.txt")
         # need to import text file onto git?
-        word_list = f.readlines()
-        '''
-        word_list=["School", "Pencil", "Toys", "Notebook"]
+        word_list = f.read().split()
         choice = random.choice(word_list)
         choice_upper = choice.upper()
 
