@@ -1,0 +1,32 @@
+import random
+def roman(romanvalue):
+    Romanletters = [
+        (1000,'M'),
+        (900,'CM'),
+        (500,'D'),
+        (400,'CD'),
+        (100,'C'),
+        (90,'XC'),
+        (50,'L'),
+        (40,'XL'),
+        (10,'X'),
+        (9,'IX'),
+        (5,'V'),
+        (4,'IV'),
+        (1,'I'),]
+    res=''
+    for (num, roman) in Romanletters:
+        a= (int)(romanvalue/num)
+        b= (int)(romanvalue%num)
+        (c, romanvalue)=(a,b)
+        res+=roman*c
+    return res
+Question=random.randint(1,4000)
+ComputerAnswer=roman(Question)
+print(Question)
+Answer=input("I'M SURE YOU WONT GET THIS ONE!\nEnter your answer in Roman numerals:\n")
+if ComputerAnswer == Answer:
+    #score+=10
+    print("AGH! I UNDERESTIMATED YOU, YOU WONT GET ANOTHER ONE!")
+else:
+    print("AH HA! EEEEEK WRONG ANSWER! GO HOME TO GRANDMA YOU LOST 10 POINTS!")
