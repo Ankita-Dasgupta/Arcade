@@ -1,85 +1,318 @@
-import sys,time,os,mysql.connector
-from asciimatics.effects import Cycle, Stars
-from asciimatics.renderers import FigletText
-from asciimatics.scene import Scene
-from asciimatics.screen import Screen
-from asciimatics.effects import Stars, Print
-from asciimatics.particles import RingFirework, SerpentFirework, StarFirework,PalmFirework
-from asciimatics.renderers import SpeechBubble, FigletText, Rainbow
-from asciimatics.scene import Scene
-from asciimatics.screen import Screen
-from asciimatics.exceptions import ResizeScreenError
-from random import randint, choice
-import os
-from time import sleep
-# The screen clear function
-def screen_clear():
-   # for mac and linux(here, os.name is 'posix')
-   if os.name == 'posix':
-      _ = os.system('clear')
-   else:
-      # for windows platfrom
-      _ = os.system('cls')
-print("")
-sleep(5)
-# now call funct
-db=mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="gaurav",
-    database="userdata",
-    )
-mycursor = db.cursor()
-def printanimation(message):
+import random,sys,time
+def printt(message):
     for char in message:
             sys.stdout.write(char)
             sys.stdout.flush()
-            time.sleep(0.01)
-            if char!="\n":
+            time.sleep(0.01)    
+            if char=="\n":
                 time.sleep(0.1)
             else:
-                time.sleep(1)
-def maingame():
-    with open("Game Console.txt") as file:
-        for i in range(5):
-            for char in file.readline():
-                printanimation(char)
-            if i==1 or i==0:
-                printanimation("...")
-                time.sleep(1)
-    printanimation("Please Enter The Name Of Your Character: ")
-    name=input()
-def gameover(screen):
-    scenes = []
-    effects = [Stars(screen, screen.width),Print(screen,SpeechBubble("Please resize your screen to continue"),y=screen.height - 3,start_frame=300)]
-    for _ in range(20):
-        fireworks = [(PalmFirework, 25, 30),(PalmFirework, 25, 30),(StarFirework, 25, 35),(StarFirework, 25, 35),(StarFirework, 25, 35),(RingFirework, 20, 30),(SerpentFirework, 30, 35),]
-        firework, start, stop = choice(fireworks)
-        effects.insert(1,firework(screen,randint(0, screen.width),randint(screen.height // 8, screen.height * 3 // 4),randint(start, stop),start_frame=randint(0, 250)))
-    effects.append(Print(screen,
-                         Rainbow(screen, FigletText("CONGRATULATIONS!")),
-                         screen.height // 2 - 6,
-                         speed=1,
-                         start_frame=5))
-    effects.append(Print(screen,
-                         Rainbow(screen, FigletText("YOU HAVE SUCCESSFULLY BEATEN THE")),
-                         screen.height // 2 + 1,
-                         speed=1,
-                         start_frame=5))
-    effects.append(Print(screen,
-                         Rainbow(screen, FigletText("DRAGON!")),
-                         screen.height // 2 + 8,
-                         speed=1,
-                         start_frame=5))                   
-    scenes.append(Scene(effects,-1,clear=True))
-    screen.play(scenes, stop_on_resize=True)
-def endscreen():
-    screen_clear()
-    print ("You have successfully come to the endscreen")
-#stuff to be added here for the end screen
-while True:
-    try:
-        Screen.wrapper(gameover)
-        sys.exit(0)
-    except ResizeScreenError:
-        endscreen()
+                time.sleep(0.01)
+def level1():
+    def difficulty():
+        dic={1:"Easy",2:"Moderate",3:"Hard"}
+        while True:
+            global lives
+            lives=0
+            difficulty=int(input("Choose your difficulty:\n1:Easy\n2:Moderate\n3:Hard\n"))
+            if difficulty<=3:
+                print("You have chosen: ",dic[difficulty]," mode")
+                if 'c'==input("Enter c to Confirm or Enter any other character to change difficulty\n"):
+                    if difficulty==1:
+                        lives=3
+                        print("You have 3 lives use it cautiously\n\n")
+                        break     
+                    elif difficulty==2:
+                        lives=2
+                        print("You have 2 lives use it cautiously\n\n")
+                        break
+                    elif difficulty==3:
+                        lives=1
+                        print("You have 1 life use it cautiously\n\n")
+                        break
+                else:
+                    continue
+            else:
+                print("Invalid Number Please Pick A Number Between 1 to 3\n\n")
+    difficulty()
+    rand1=0
+    rand2=0
+    ans1=0
+    realans1=0
+    realans2=0
+    ans2=0
+    realans3=0
+    ans3=0
+    rand3=0
+    printt("Monster 1: Dr. Linear Equation XD\n\n")
+    printt("This monster tests your addition skills there are three difficulties to his questioning need to get all his questions right in a row to pass\n")
+    printt("You only have 3 chances so dont make a mistake\n")
+    global lives
+    while lives!=0:
+        rand1=random.randint(0,9)
+        rand2=random.randint(0,9)
+        realans1=rand1+rand2
+        print(rand1,"+",rand2,"=")
+        ans1=int(input())
+        if realans1== ans1:
+            printt("Tsk you're not as dumb as you look afterall\nHeres another one you wont get this one right\n")
+            rand1=random.randint(0,99)
+            rand2=random.randint(0,99)
+            realans2=rand1+rand2
+            print(rand1,"+",rand2,"=")
+            ans2=int(input())
+        else:
+            printt("AHAHHA HOW ARE YOU SO BAD\n")
+            lives=lives-1
+            print("Remaning lives=",lives)
+            continue
+        if realans2==ans2:
+            printt("That's right but well I'll let you take the little pickings (͠° ͟ʖ ͡°)\nHow bout I ask you a question I didnt know the answer to either you'd never come back to this place!\n\n")
+            rand1=random.randint(0,99)
+            rand2=random.randint(0,99)
+            rand3=random.randint(0,99)
+            print(rand1,"+",rand2,"-",rand3,"=")
+            realans3=rand1+rand2-rand3
+            ans3=int(input())
+        else:
+             printt("!\n")
+             lives=lives-1
+             printt("HAHAHA I KNEW YOU WOULDNT BE ABLE TO ANSWER THIS ONE ¬ヘ(^∀ ^ )\nYOU JUST LOST ONE OF YOUR LIVES x_X")
+             print("Remaning lives=",lives)
+             continue
+        if realans3==ans3:
+               printt("NOOOOO HOW ARE YOU BETTER THAN ME, UM- THE EXIT IS THAT WAY(⌒_⌒;)\n\n*CONGRATS YOU EMBARRASED THE LINEAR EQUATION MONSTER*\n")
+               global finalscore
+               finalscore=10
+               break
+        else:
+            printt("WHAT A SHAME YOU GO BACK TO THE FIRST QUESTION XD\nAND YOU LOST A LIFE X_x ")
+            lives=lives-1
+            print("Remaning lives=",lives)
+            continue
+    if lives==0:
+        printt("HAHA GAME OVER! YOU GET ZERO POINTS TRY AGAIN IF YOU WANNA LOSE xD")
+#THIS IS WHERE THE CODE STARTS FROM
+printt("Please Enter The Name Of Your Character: ")
+name=input()
+print(name,end="")
+with open("Game Console.txt") as file:
+    for i in range(5):
+        for line in file.readline():
+            printt(line)
+printt("You're greeted by a faint foggy figure that creeps out the keyhole of the fungi ridden rotting door\n")
+printt("You hear a deep and rough voice with a terrible condescending vibe\n\n")
+printt("Huh? who's here again?, \n\n")
+finalscore=0
+level1()
+if finalscore==10:
+    level2()
+if finalscore==20:
+    level3()
+else:
+    printt("You didnt pass the second level, you get trapped in the dungeon with the princess...")
+    printt("You shall be eaten soon by the dragon say goodbye!\nGame Over.")
+    print("Your final score is: ",finalscore)
+    
+def level2():
+                printt("level 2 this is a roman numeral game and on completion\nyou recive 10 points and access to level3")
+                def roman(romanvalue):
+                    Romanletters = [
+                        (1000,'M'),
+                        (900,'CM'),
+                        (500,'D'),
+                        (400,'CD'),
+                        (100,'C'),
+                        (90,'XC'),
+                        (50,'L'),
+                        (40,'XL'),
+                        (10,'X'),
+                        (9,'IX'),
+                        (5,'V'),
+                        (4,'IV'),
+                        (1,'I'),]
+                    res=''
+                    for (num, roman) in Romanletters:
+                        a= (int)(romanvalue/num)
+                        b= (int)(romanvalue%num)
+                        (c, romanvalue)=(a,b)
+                        res+=roman*c
+                    return res
+                Question=random.randint(1,4000)
+                ComputerAnswer=roman(Question)
+                print(Question)
+                Answer=input("I'M SURE YOU WONT GET THIS ONE!\nEnter your answer in Roman numerals:\n")
+                if ComputerAnswer == Answer:
+                    #score+=10
+                    print("AGH! I UNDERESTIMATED YOU, YOU WONT GET ANOTHER ONE!")
+                else:
+                    print("AH HA! EEEEEK WRONG ANSWER! GO HOME TO GRANDMA YOU LOST 10 POINTS!")
+def level3():
+    print("this is level 3 a hangman game, you have to guess the word for 10 points")
+    def main():
+                c=0
+                def hangman():
+                    import random
+                    '''
+                    f = open("t1.txt")
+                    #need to import text file onto git?
+                    word_list = f.readlines()
+                    '''
+                    word_list=["School", "Pencil", "Toys", "Notebook"]
+                    choice = random.choice(word_list)
+                    choice_upper = choice.upper()
+
+                    guessed = False
+                    guessed_letters = []
+                    guessed_words = []
+                    tries = 6
+                    print("Ready to play Hangman round", c+1, "?")
+
+                    def hangman_display(tries):
+                        stages = [  # final state: head, torso, both arms, and both legs
+                            """
+                               --------
+                               |      |
+                               |      O
+                               |     \|/
+                               |      |
+                               |     / \
+                               -
+                            """,
+                            # head, torso, both arms, and one leg
+                            """
+                               --------
+                               |      |
+                               |      O
+                               |     \|/
+                               |      |
+                               |     / 
+                               -
+                            """,
+                            # head, torso, and both arms
+                            """
+                               --------
+                               |      |
+                               |      O
+                               |     \|/
+                               |      |
+                               |      
+                               -
+                            """,
+                            # head, torso, and one arm
+                            """
+                               --------
+                               |      |
+                               |      O
+                               |     \|
+                               |      |
+                               |     
+                               -
+                            """,
+                            # head and torso
+                            """
+                               --------
+                               |      |
+                               |      O
+                               |      |
+                               |      |
+                               |     
+                               -
+                            """,
+                            # head
+                            """
+                               --------
+                               |      |
+                               |      O
+                               |    
+                               |      
+                               |     
+                               -
+                            """,
+                            # initial empty state
+                            """
+                               --------
+                               |      |
+                               |      
+                               |    
+                               |      
+                               |     
+                               -
+                            """
+                        ]
+                        return stages[tries]
+                    underscores = "_" * len(choice_upper)
+                    printt(hangman_display(tries))
+                    print("_ " * len(choice_upper))
+                    underscore_change = list(underscores)
+                    while not guessed and tries > 0:
+                        guess = input("Enter a letter or a word ")  # user guess
+                        guess_upper = guess.upper()  # guess in upper to prevent errors
+                        if len(guess) == 1 and guess_upper.isalpha():  # if letter
+                            '''
+                            error handling if guess length is 1 it is a digit 
+                            or alpha and isalpha checks for simply alpha
+                            '''
+                            
+                            if guess_upper in guessed_letters:
+                                printt("you have already guessed this letter")
+
+                            elif guess_upper not in choice_upper:
+                                tries = tries - 1
+                                guessed_letters.append(guess_upper)
+                                print('"{}"'.format(guess), "is not in the word")
+
+                            else:  # final option- correct guess
+                                print("good job", guess_upper, "is in word")
+                                guessed_letters.append(guess_upper)
+                                placeholder = []
+                                index=-1
+                                for i in choice_upper:
+                                    index=index+1
+                                    if guess_upper == i:
+                                        placeholder.append(guess_upper)
+                                    else:
+                                        placeholder.append(underscore_change[index])
+
+                                underscores = ' '.join(placeholder)
+                                printt(underscores)
+                                underscore_change = placeholder
+                                if placeholder  == list(choice_upper) :
+                                        guessed = True
+                       #I have to change this logic , loop will never end otherwise
+                        elif len(guess) > 1 and guess.isalpha():
+                            if guess_upper in guessed_words:
+                                printt("you already guessed that word!")
+
+                            elif guess_upper != choice_upper:
+                                print(guess, "is not the word")
+                                guessed_words.append(guess.upper())
+                                tries = tries - 1
+                            else:
+                                guessed = True
+                                underscores = choice_upper
+                            #underscores = ' '.join(placeholder)
+                            print(" ".join(underscores))
+                        else:
+                            tries = tries -1
+                            print("Not a valid answer")
+
+
+                        if guessed==True:
+                            print("Congrats you completed round ", c+1)
+                            printt("Well done you won!")
+                            break
+                        else:
+                            print("you have", tries, "tries left")
+                            print(hangman_display(tries))
+                    #guess over display where the user is at right now
+                    if guessed==False:
+                        printt("you lost this round!")
+                while c<3:
+                    hangman()
+                    c=c+1
+                else:
+                    print("you got 10 points","your score now is=",finalscore=30)
+                    global finalscore
+                    finalscore=30                  
+    main()
