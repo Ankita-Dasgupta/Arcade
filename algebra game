@@ -1,1 +1,84 @@
-
+def level1():
+    def difficulty():
+        dic={1:"Easy",2:"Moderate",3:"Hard"}
+        while True:
+            global lives
+            lives=0
+            difficulty=int(input("Choose your difficulty:\n1:Easy\n2:Moderate\n3:Hard\n"))
+            if difficulty<=3:
+                print("You have chosen: ",dic[difficulty]," mode")
+                if 'c'==input("Enter c to Confirm or Enter any other character to change difficulty\n"):
+                    if difficulty==1:
+                        lives=3
+                        print("You have 3 lives use it cautiously\n\n")
+                        break     
+                    elif difficulty==2:
+                        lives=2
+                        print("You have 2 lives use it cautiously\n\n")
+                        break
+                    elif difficulty==3:
+                        lives=1
+                        print("You have 1 life use it cautiously\n\n")
+                        break
+                else:
+                    continue
+            else:
+                print("Invalid Number Please Pick A Number Between 1 to 3\n\n")
+    difficulty()
+    rand1=0
+    rand2=0
+    ans1=0
+    realans1=0
+    realans2=0
+    ans2=0
+    realans3=0
+    ans3=0
+    rand3=0
+    printt("Monster 1: Dr. Linear Equation XD\n\n")
+    printt("This monster tests your addition skills there are three difficulties to his questioning need to get all his questions right in a row to pass\n")
+    printt("You only have 3 chances so dont make a mistake\n")
+    global lives
+    while lives!=0:
+        rand1=random.randint(0,9)
+        rand2=random.randint(0,9)
+        realans1=rand1+rand2
+        print(rand1,"+",rand2,"=")
+        ans1=int(input())
+        if realans1== ans1:
+            printt("Tsk you're not as dumb as you look afterall\nHeres another one you wont get this one right\n")
+            rand1=random.randint(0,99)
+            rand2=random.randint(0,99)
+            realans2=rand1+rand2
+            print(rand1,"+",rand2,"=")
+            ans2=int(input())
+        else:
+            printt("AHAHHA HOW ARE YOU SO BAD\n")
+            lives=lives-1
+            print("Remaning lives=",lives)
+            continue
+        if realans2==ans2:
+            printt("That's right but well I'll let you take the little pickings (͠° ͟ʖ ͡°)\nHow bout I ask you a question I didnt know the answer to either you'd never come back to this place!\n\n")
+            rand1=random.randint(0,99)
+            rand2=random.randint(0,99)
+            rand3=random.randint(0,99)
+            print(rand1,"+",rand2,"-",rand3,"=")
+            realans3=rand1+rand2-rand3
+            ans3=int(input())
+        else:
+             printt("!\n")
+             lives=lives-1
+             printt("HAHAHA I KNEW YOU WOULDNT BE ABLE TO ANSWER THIS ONE ¬ヘ(^∀ ^ )\nYOU JUST LOST ONE OF YOUR LIVES x_X")
+             print("Remaning lives=",lives)
+             continue
+        if realans3==ans3:
+               printt("NOOOOO HOW ARE YOU BETTER THAN ME, UM- THE EXIT IS THAT WAY(⌒_⌒;)\n\n*CONGRATS YOU EMBARRASED THE LINEAR EQUATION MONSTER*\n")
+               global finalscore
+               finalscore=10
+               break
+        else:
+            printt("WHAT A SHAME YOU GO BACK TO THE FIRST QUESTION XD\nAND YOU LOST A LIFE X_x ")
+            lives=lives-1
+            print("Remaning lives=",lives)
+            continue
+    if lives==0:
+        printt("HAHA GAME OVER! YOU GET ZERO POINTS TRY AGAIN IF YOU WANNA LOSE xD")
