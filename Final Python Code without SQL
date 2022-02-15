@@ -10,15 +10,16 @@ def printt(message):
                 time.sleep(0.01)
 def level1():
     def difficulty():
+        global dic
         dic={1:"Easy",2:"Moderate",3:"Hard"}
         while True:
             global lives
             lives=0
-            difficulty=int(input("Choose your difficulty:\n1:Easy\n2:Moderate\n3:Hard\n"))
+            difficulty=int(input("Choose your difficulty:\n3:Easy\n2:Moderate\n1:Hard\n"))
             if difficulty<=3:
                 print("You have chosen: ",dic[difficulty]," mode")
                 if 'c'==input("Enter c to Confirm or Enter any other character to change difficulty\n"):
-                    if difficulty==1:
+                    if difficulty==3:
                         lives=3
                         print("You have 3 lives use it cautiously\n\n")
                         break     
@@ -26,7 +27,7 @@ def level1():
                         lives=2
                         print("You have 2 lives use it cautiously\n\n")
                         break
-                    elif difficulty==3:
+                    elif difficulty==1:
                         lives=1
                         print("You have 1 life use it cautiously\n\n")
                         break
@@ -45,8 +46,8 @@ def level1():
     ans3=0
     rand3=0
     printt("Monster 1: Dr. Linear Equation XD\n\n")
-    printt("This monster tests your addition skills there are three difficulties to his questioning need to get all his questions right in a row to pass\n")
-    printt("You only have 3 chances so dont make a mistake\n")
+    printt("This monster tests your addition skills there are three difficulties to his questioning need to get all his questions right in a row to pass, be careful!\n")
+    printt("You only have",dic[difficulty]," chances so dont make a mistake\n")
     global lives
     while lives!=0:
         rand1=random.randint(0,9)
@@ -55,7 +56,7 @@ def level1():
         print(rand1,"+",rand2,"=")
         ans1=int(input())
         if realans1== ans1:
-            printt("Tsk you're not as dumb as you look afterall\nHeres another one you wont get this one right\n")
+            printt("Tsk you're not as dumb as you look afterall\nYou wont get this one right!\n")
             rand1=random.randint(0,99)
             rand2=random.randint(0,99)
             realans2=rand1+rand2
@@ -67,7 +68,7 @@ def level1():
             print("Remaning lives=",lives)
             continue
         if realans2==ans2:
-            printt("That's right but well I'll let you take the little pickings (͠° ͟ʖ ͡°)\nHow bout I ask you a question I didnt know the answer to either you'd never come back to this place!\n\n")
+            printt("That's right but well I'll let you take the little pickings (͠° ͟ʖ ͡°)\nHow bout I ask you a question I don't know the answer to either you'd never come back to this place!\n\n")
             rand1=random.randint(0,99)
             rand2=random.randint(0,99)
             rand3=random.randint(0,99)
@@ -86,7 +87,7 @@ def level1():
                finalscore=10
                break
         else:
-            printt("WHAT A SHAME YOU GO BACK TO THE FIRST QUESTION XD\nAND YOU LOST A LIFE X_x ")
+            printt("WHAT A SHAME, YOU GO BACK TO THE FIRST QUESTION XD\nAND YOU LOST A LIFE X_x ")
             lives=lives-1
             print("Remaning lives=",lives)
             continue
