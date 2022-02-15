@@ -1,18 +1,1 @@
-import random
-lives = 3
-rand1=0
-rand2=0
-ans1=0
-realans=0
-print("I am the linear equation monster and will test you on your mathematical skills, you are allowed ",lives," wrong attempts and if youre wrong you will pay with your life")
-print("Level 1: ")
-rand1=random.randint(0,9)
-rand2=random.randint(0,9)
-realans=rand1+rand2
-print(rand1,"+",rand2,"=")
-ans1=int(input())
-if realans == ans1:
-    print("uGh that was correct but you wont get the next one!")
-if realans != ans1:
-    print("HaH You lose 1 life")
-    lives-=-1
+
