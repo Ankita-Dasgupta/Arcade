@@ -3,17 +3,17 @@ def printt(message):
     for char in message:
             sys.stdout.write(char)
             sys.stdout.flush()
-            time.sleep(0.01)    
+            time.sleep(0)    
             if char=="\n":
-                time.sleep(0.1)
+                time.sleep(0)
             else:
-                time.sleep(0.01)
+                time.sleep(0)
 def level1():
-    def difficulty():
+    def dif():
         global dic
-        dic={1:"Easy",2:"Moderate",3:"Hard"}
+        dic={1:"Hard",2:"Moderate",3:"Easy"}
         while True:
-            global lives
+            global lives,difficulty,finalscore,name
             lives=0
             difficulty=int(input("Choose your difficulty:\n3:Easy\n2:Moderate\n1:Hard\n"))
             if difficulty<=3:
@@ -21,21 +21,21 @@ def level1():
                 if 'c'==input("Enter c to Confirm or Enter any other character to change difficulty\n"):
                     if difficulty==3:
                         lives=3
-                        print("You have 3 lives use it cautiously\n\n")
+                        print("\nYou have 3 lives use it cautiously\n\n")
                         break     
                     elif difficulty==2:
                         lives=2
-                        print("You have 2 lives use it cautiously\n\n")
+                        print("\nYou have 2 lives use it cautiously\n\n")
                         break
                     elif difficulty==1:
                         lives=1
-                        print("You have 1 life use it cautiously\n\n")
+                        print("\nYou have 1 life use it cautiously\n\n")
                         break
                 else:
                     continue
             else:
                 print("Invalid Number Please Pick A Number Between 1 to 3\n\n")
-    difficulty()
+    dif()
     rand1=0
     rand2=0
     ans1=0
@@ -46,8 +46,10 @@ def level1():
     ans3=0
     rand3=0
     printt("Monster 1: Dr. Linear Equation XD\n\n")
-    printt("This monster tests your addition skills there are three difficulties to his questioning need to get all his questions right in a row to pass, be careful!\n")
-    printt("You only have",dic[difficulty]," chances so dont make a mistake\n")
+    printt("Dr. Linear Equation tests your addition skills, there are three difficulties to his questions\n")
+    print(name,end="")
+    printt(", These are the number of chances you shall recieve:")
+    print(difficulty,"\n")
     global lives
     while lives!=0:
         rand1=random.randint(0,9)
@@ -56,19 +58,19 @@ def level1():
         print(rand1,"+",rand2,"=")
         ans1=int(input())
         if realans1== ans1:
-            printt("Tsk you're not as dumb as you look afterall\nYou wont get this one right!\n")
+            printt("\nTsk you're not as dumb as you look after all\nYou wont get this one right!\n\n")
             rand1=random.randint(0,99)
             rand2=random.randint(0,99)
             realans2=rand1+rand2
             print(rand1,"+",rand2,"=")
             ans2=int(input())
         else:
-            printt("AHAHHA HOW ARE YOU SO BAD\n")
+            printt("\n\AHAHHA! YOU'RE A NINCOMPOOP\n\n")
             lives=lives-1
-            print("Remaning lives=",lives)
+            print("Remaning lives=",lives,"\n")
             continue
         if realans2==ans2:
-            printt("That's right but well I'll let you take the little pickings (͠° ͟ʖ ͡°)\nHow bout I ask you a question I don't know the answer to either you'd never come back to this place!\n\n")
+            printt("\n\nThat's right ppfft but I'll let you take the little pickings (͠° ͟ʖ ͡°)\nI'll ask you a question that will not bring you back to this place!\n\n")
             rand1=random.randint(0,99)
             rand2=random.randint(0,99)
             rand3=random.randint(0,99)
@@ -76,13 +78,13 @@ def level1():
             realans3=rand1+rand2-rand3
             ans3=int(input())
         else:
-             printt("!\n")
+             printt("\n")
              lives=lives-1
-             printt("HAHAHA I KNEW YOU WOULDNT BE ABLE TO ANSWER THIS ONE ¬ヘ(^∀ ^ )\nYOU JUST LOST ONE OF YOUR LIVES x_X")
-             print("Remaning lives=",lives)
+             printt("HAHAHA I KNEW YOU WOULDNT BE ABLE TO ANSWER THIS ONE ¬ヘ(^∀ ^ )\n\nYOU JUST LOST ONE OF YOUR LIVES x_X\n\n")
+             print("Remaning lives=",lives,"\n")
              continue
         if realans3==ans3:
-               printt("NOOOOO HOW ARE YOU BETTER THAN ME, UM- THE EXIT IS THAT WAY(⌒_⌒;)\n\n*CONGRATS YOU EMBARRASED THE LINEAR EQUATION MONSTER*\n")
+               printt("NOOOOO HOW ARE YOU BETTER THAN ME, UM- THE EXIT IS THAT WAY(⌒_⌒;)\n\n*CONGRATS YOU EMBARRASED THE LINEAR EQUATION MONSTER*\n\n")
                global finalscore
                finalscore=10
                break
@@ -93,6 +95,204 @@ def level1():
             continue
     if lives==0:
         printt("HAHA GAME OVER! YOU GET ZERO POINTS TRY AGAIN IF YOU WANNA LOSE xD")
+def level2():
+    printt("\nMonster 2: Mr. Juleius Caeser\n\n")
+    def roman(romanvalue):
+        global finalscore
+        Romanletters = [
+            (1000,'M'),
+            (900,'CM'),
+            (500,'D'),
+            (400,'CD'),
+            (100,'C'),
+            (90,'XC'),
+            (50,'L'),
+            (40,'XL'),
+            (10,'X'),
+            (9,'IX'),
+            (5,'V'),
+            (4,'IV'),
+            (1,'I')]
+        res=''
+        for (num, roman) in Romanletters:
+            a= (int)(romanvalue/num)
+            b= (int)(romanvalue%num)
+            (c, romanvalue)=(a,b)
+            res+=roman*c
+        return res
+    Question=random.randint(1,4000)
+    ComputerAnswer=roman(Question)
+    print(Question,"\n")
+    Answer=input("I'M SURE YOU WONT GET THIS ONE!\nEnter your answer in Roman numerals:\n")
+    if ComputerAnswer == Answer:
+        finalscore=finalscore+10
+        print("AGH! I UNDERESTIMATED YOU, YOU WONT GET ANOTHER ONE!")
+    else:
+        print("AH HA! EEEEEK WRONG ANSWER! GO HOME TO GRANDMA YOU LOST 10 POINTS!")
+def level3():
+    print("this is level 3 a hangman game, you have to guess the word for 10 points")
+    def main():
+        c=0
+        def hangman():
+            import random
+            '''
+            f = open("t1.txt")
+            #need to import text file onto git?
+            word_list = f.readlines()
+           '''
+            word_list=["School", "Pencil", "Toys", "Notebook"]
+            choice = random.choice(word_list)
+            choice_upper = choice.upper()
+
+            guessed = False
+            guessed_letters = []
+            guessed_words = []
+            tries = 6
+            print("Ready to play Hangman round", c+1, "?")
+
+            def hangman_display(tries):
+                stages = [  # final state: head, torso, both arms, and both legs
+                    """
+                        ______
+                       |      |
+                       |      O
+                       |     \|/
+                       |      |
+                      _|_    / \
+                    """,
+                    # head, torso, both arms, and one leg
+                    """
+                        ______
+                       |      |
+                       |      O
+                       |     \|/
+                       |      |
+                       |     / 
+                       -
+                    """,
+                    # head, torso, and both arms
+                    """
+                        ______
+                       |      |
+                       |      O
+                       |     \|/
+                       |      |
+                      _|_
+                    """,
+                    # head, torso, and one arm
+                    """
+                        ______
+                       |      |
+                       |      O
+                       |     \|
+                       |      |
+                      _|_
+                    """,
+                    # head and torso
+                    """
+                        ______
+                       |      |
+                       |      O
+                       |      |
+                       |      |
+                      _|_
+                    """,
+                    # head
+                    """
+                        ______
+                       |      |
+                       |      O
+                       |    
+                       |      
+                      _|_   
+                       
+                    """,
+                    # initial empty state
+                    """
+                        ______
+                       |      |
+                       |      
+                       |    
+                       |      
+                      _|_
+                    """
+                ]
+                return stages[tries]
+            underscores = "_" * len(choice_upper)
+            printt(hangman_display(tries))
+            print("_ " * len(choice_upper))
+            underscore_change = list(underscores)
+            while not guessed and tries > 0:
+                guess = input("Enter a letter or a word ")  # user guess
+                guess_upper = guess.upper()  # guess in upper to prevent errors
+                if len(guess) == 1 and guess_upper.isalpha():  # if letter
+                    '''
+                    error handling if guess length is 1 it is a digit 
+                    or alpha and isalpha checks for simply alpha
+                    '''
+                    
+                    if guess_upper in guessed_letters:
+                        printt("you have already guessed this letter")
+
+                    elif guess_upper not in choice_upper:
+                        tries = tries - 1
+                        guessed_letters.append(guess_upper)
+                        print('"{}"'.format(guess), "is not in the word")
+
+                    else:  # final option- correct guess
+                        print("good job", guess_upper, "is in word")
+                        guessed_letters.append(guess_upper)
+                        placeholder = []
+                        index=-1
+                        for i in choice_upper:
+                            index=index+1
+                            if guess_upper == i:
+                                placeholder.append(guess_upper)
+                            else:
+                                placeholder.append(underscore_change[index])
+
+                        underscores = ' '.join(placeholder)
+                        printt(underscores)
+                        underscore_change = placeholder
+                        if placeholder  == list(choice_upper) :
+                                guessed = True
+               #I have to change this logic , loop will never end otherwise
+                elif len(guess) > 1 and guess.isalpha():
+                    if guess_upper in guessed_words:
+                        printt("you already guessed that word!")
+
+                    elif guess_upper != choice_upper:
+                        print(guess, "is not the word")
+                        guessed_words.append(guess.upper())
+                        tries = tries - 1
+                    else:
+                        guessed = True
+                        underscores = choice_upper
+                    #underscores = ' '.join(placeholder)
+                    print(" ".join(underscores))
+                else:
+                    tries = tries -1
+                    print("Not a valid answer")
+
+
+                if guessed==True:
+                    print("Congrats you completed round ", c+1)
+                    printt("Well done you won!")
+                    break
+                else:
+                    print("you have", tries, "tries left")
+                    print(hangman_display(tries))
+            #guess over display where the user is at right now
+            if guessed==False:
+                printt("you lost this round!")
+        while c<3:
+            hangman()
+            c=c+1
+        else:
+            print("you got 10 points","your score now is=",finalscore=30)
+            global finalscore
+            finalscore=30                  
+    main()
 #THIS IS WHERE THE CODE STARTS FROM
 printt("Please Enter The Name Of Your Character: ")
 name=input()
@@ -113,207 +313,5 @@ if finalscore==20:
 else:
     printt("You didnt pass the second level, you get trapped in the dungeon with the princess...")
     printt("You shall be eaten soon by the dragon say goodbye!\nGame Over.")
-    print("Your final score is: ",finalscore)
-    
-def level2():
-                printt("level 2 this is a roman numeral game and on completion\nyou recive 10 points and access to level3")
-                def roman(romanvalue):
-                    Romanletters = [
-                        (1000,'M'),
-                        (900,'CM'),
-                        (500,'D'),
-                        (400,'CD'),
-                        (100,'C'),
-                        (90,'XC'),
-                        (50,'L'),
-                        (40,'XL'),
-                        (10,'X'),
-                        (9,'IX'),
-                        (5,'V'),
-                        (4,'IV'),
-                        (1,'I'),]
-                    res=''
-                    for (num, roman) in Romanletters:
-                        a= (int)(romanvalue/num)
-                        b= (int)(romanvalue%num)
-                        (c, romanvalue)=(a,b)
-                        res+=roman*c
-                    return res
-                Question=random.randint(1,4000)
-                ComputerAnswer=roman(Question)
-                print(Question)
-                Answer=input("I'M SURE YOU WONT GET THIS ONE!\nEnter your answer in Roman numerals:\n")
-                if ComputerAnswer == Answer:
-                    #score+=10
-                    print("AGH! I UNDERESTIMATED YOU, YOU WONT GET ANOTHER ONE!")
-                else:
-                    print("AH HA! EEEEEK WRONG ANSWER! GO HOME TO GRANDMA YOU LOST 10 POINTS!")
-def level3():
-    print("this is level 3 a hangman game, you have to guess the word for 10 points")
-    def main():
-                c=0
-                def hangman():
-                    import random
-                    '''
-                    f = open("t1.txt")
-                    #need to import text file onto git?
-                    word_list = f.readlines()
-                    '''
-                    word_list=["School", "Pencil", "Toys", "Notebook"]
-                    choice = random.choice(word_list)
-                    choice_upper = choice.upper()
-
-                    guessed = False
-                    guessed_letters = []
-                    guessed_words = []
-                    tries = 6
-                    print("Ready to play Hangman round", c+1, "?")
-
-                    def hangman_display(tries):
-                        stages = [  # final state: head, torso, both arms, and both legs
-                            """
-                               --------
-                               |      |
-                               |      O
-                               |     \|/
-                               |      |
-                               |     / \
-                               -
-                            """,
-                            # head, torso, both arms, and one leg
-                            """
-                               --------
-                               |      |
-                               |      O
-                               |     \|/
-                               |      |
-                               |     / 
-                               -
-                            """,
-                            # head, torso, and both arms
-                            """
-                               --------
-                               |      |
-                               |      O
-                               |     \|/
-                               |      |
-                               |      
-                               -
-                            """,
-                            # head, torso, and one arm
-                            """
-                               --------
-                               |      |
-                               |      O
-                               |     \|
-                               |      |
-                               |     
-                               -
-                            """,
-                            # head and torso
-                            """
-                               --------
-                               |      |
-                               |      O
-                               |      |
-                               |      |
-                               |     
-                               -
-                            """,
-                            # head
-                            """
-                               --------
-                               |      |
-                               |      O
-                               |    
-                               |      
-                               |     
-                               -
-                            """,
-                            # initial empty state
-                            """
-                               --------
-                               |      |
-                               |      
-                               |    
-                               |      
-                               |     
-                               -
-                            """
-                        ]
-                        return stages[tries]
-                    underscores = "_" * len(choice_upper)
-                    printt(hangman_display(tries))
-                    print("_ " * len(choice_upper))
-                    underscore_change = list(underscores)
-                    while not guessed and tries > 0:
-                        guess = input("Enter a letter or a word ")  # user guess
-                        guess_upper = guess.upper()  # guess in upper to prevent errors
-                        if len(guess) == 1 and guess_upper.isalpha():  # if letter
-                            '''
-                            error handling if guess length is 1 it is a digit 
-                            or alpha and isalpha checks for simply alpha
-                            '''
-                            
-                            if guess_upper in guessed_letters:
-                                printt("you have already guessed this letter")
-
-                            elif guess_upper not in choice_upper:
-                                tries = tries - 1
-                                guessed_letters.append(guess_upper)
-                                print('"{}"'.format(guess), "is not in the word")
-
-                            else:  # final option- correct guess
-                                print("good job", guess_upper, "is in word")
-                                guessed_letters.append(guess_upper)
-                                placeholder = []
-                                index=-1
-                                for i in choice_upper:
-                                    index=index+1
-                                    if guess_upper == i:
-                                        placeholder.append(guess_upper)
-                                    else:
-                                        placeholder.append(underscore_change[index])
-
-                                underscores = ' '.join(placeholder)
-                                printt(underscores)
-                                underscore_change = placeholder
-                                if placeholder  == list(choice_upper) :
-                                        guessed = True
-                       #I have to change this logic , loop will never end otherwise
-                        elif len(guess) > 1 and guess.isalpha():
-                            if guess_upper in guessed_words:
-                                printt("you already guessed that word!")
-
-                            elif guess_upper != choice_upper:
-                                print(guess, "is not the word")
-                                guessed_words.append(guess.upper())
-                                tries = tries - 1
-                            else:
-                                guessed = True
-                                underscores = choice_upper
-                            #underscores = ' '.join(placeholder)
-                            print(" ".join(underscores))
-                        else:
-                            tries = tries -1
-                            print("Not a valid answer")
-
-
-                        if guessed==True:
-                            print("Congrats you completed round ", c+1)
-                            printt("Well done you won!")
-                            break
-                        else:
-                            print("you have", tries, "tries left")
-                            print(hangman_display(tries))
-                    #guess over display where the user is at right now
-                    if guessed==False:
-                        printt("you lost this round!")
-                while c<3:
-                    hangman()
-                    c=c+1
-                else:
-                    print("you got 10 points","your score now is=",finalscore=30)
-                    global finalscore
-                    finalscore=30                  
-    main()
+    printt("Your final score is: ")
+    print(finalscore)  
