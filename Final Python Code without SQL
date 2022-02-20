@@ -99,6 +99,13 @@ def level1():
         printt("Dr. Linear Equation XD: HAHA GAME OVER! YOU GET ZERO POINTS TRY AGAIN IF YOU WANNA LOSE xD")
 def level2():
     printt("\nMonster 2: Mr. Julius Caesar...\n\n")
+    a=input("Your Chaperone ^_^: Enter I if you want to see the instructions to Roman Numerals")
+    if a=="i"or"I":
+        with open("Roman Numeral Instructions.txt") as file2:
+            for i in file2:
+                for line in file2.readline():
+                    printt(line)
+        file2.close()
     def roman(romanvalue):
         Romanletters = [
             (1000,'M'),
@@ -126,19 +133,19 @@ def level2():
         Question=random.randint(1,4000)
         ComputerAnswer=roman(Question)
         print("\nNumber: ",Question,"\n")
-        Answer=input("I'M SURE YOU WONT GET THIS ONE!\nEnter your answer in Roman Numerals:\n")
+        Answer=input("Julius Caesar @_@ : I'M SURE YOU WONT GET THIS ONE!\nEnter your answer in Roman Numerals:\n")
         if ComputerAnswer == Answer:
             finalscore=finalscore+10
             if i!=3:
-                printt("AGH! I UNDERESTIMATED YOU, YOU WONT GET ANOTHER ONE!\n")
+                printt("Julius Caesar @_@: AGH! I UNDERESTIMATED YOU, YOU WONT GET ANOTHER ONE!\n")
             else:
-                printt("YOU BEAT ME IN MY OWN STADIUM! CURSE YOU! THE EXECUTIONER WILL SURELY STOP YOU!")
+                printt("Julius Caesar ~>_<~: YOU BEAT ME IN MY OWN STADIUM! CURSE YOU! THE EXECUTIONER WILL SURELY STOP YOU!")
         else:
-            printt("AH HA! EEEEEK WRONG ANSWER! GO HOME TO GRANDMA YOU I TOOK 10 OF YOUR CREDITS! XP")
+            printt("Julius Caesar X): AH HA! EEEEEK WRONG ANSWER! GO HOME TO GRANDMA YOU I TOOK 10 OF YOUR CREDITS! XP")
             finalscore-=10
 def level3():
     printt("Level 3: The Executioner...")
-    a=input("Enter I if you want to see the instructions to hangman")
+    a=input("Your Chaperone ^_^: Enter I if you want to see the instructions to Hangman")
     if a=="i"or"I":
         with open("Hangman Instructions.txt") as file3:
             for i in file3:
