@@ -1,37 +1,42 @@
-import random,sys,time
+import random,sys,time,random
 finalscore=0
 def printt(message):
     for char in message:
             sys.stdout.write(char)
             sys.stdout.flush()
-            time.sleep(0.02)    
+            time.sleep(0)    
             if char=="\n":
-                time.sleep(0.1)
+                time.sleep(0)
             else:
-                time.sleep(0.01)
+                time.sleep(0)
 def dif():
     global dic
     dic={1:"Hard",2:"Moderate",3:"Easy"}
     while True:
         global lives,difficulty,finalscore,name
         lives=0
-        difficulty=int(input("\n\nGame Console: Choose your difficulty:\n3:Easy\n2:Moderate\n1:Hard\n"))
+        while True:
+            try:
+                difficulty=int(input("\nGame Console: Choose your difficulty:\n3:Easy\n2:Moderate\n1:Hard\n"))
+                break
+            except:
+                print("Game Console: Oops! Invalid Entry, Issue: ", sys.exc_info()[0])
         if difficulty<=3:
             print("Game Console: You have chosen: ",dic[difficulty]," mode")
             if difficulty==3:
                 lives=3
-                printt("\nYour Chaperone 0_0: You have 3 lives use it cautiously\n\n")
+                printt("\nYour Chaperone 0_0: You have 3 chances use it cautiously\n\n")
                 break
             elif difficulty==2:
                 lives=2
-                printt("\nYour Chaperone 0_0: You have 2 lives use it cautiously\n\n")
+                printt("\nYour Chaperone 0_0: You have 2 chances use it cautiously\n\n")
                 break
             elif difficulty==1:
                 lives=1
-                printt("\nYour Chaperone 0_0: You have 1 life use it cautiously\n\n")
+                printt("\nYour Chaperone 0_0: You have 1 chance use it cautiously\n\n")
                 break
         else:
-            printt("Your Chaperone 0_0: Invalid Number Please Pick A Number Between 1 to 3\n\n")
+            printt("Your Chaperone 0_0: Invalid Number Please Pick A Number Between 1 to 3\n")
     
 def level1():
     global finalscore,difficulty
@@ -46,30 +51,42 @@ def level1():
     rand3=0
     printt("Monster 1: Dr. Linear Equation XD...\n\n")
     printt("Your Chaperone 0_0: Dr. Linear Equation tests your addition skills, there are three difficulties to his questions\n")
-    print(name,end="")
-    printt(", These are the number of chances you shall recieve:")
+    printt(name)
+    printt(", These are the number of chances you shall recieve: ")
     print(difficulty,"\n")
     global lives
     while lives!=0:
         rand1=random.randint(0,9)
         rand2=random.randint(0,9)
         realans1=rand1+rand2
-        printt("Game Console: Question 1:\n")
-        print(rand1,"+",rand2,"=")
-        ans1=int(input())
+        printt("Question 1:\n")
+        print(rand1,"+",rand2,"=",end="")
+        while True:
+                try:
+                    ans1=int(input())
+                    break
+                except:
+                    print("Oops! Invalid Entry, Error:",sys.exc_info()[0])
+                    print(rand1,"+",rand2,"=",end="")
         if realans1== ans1:
-            printt("\nDr. Linear Equation X_0 :Tsk you're not as dumb as you look after all\nYou wont get this one right!\n\n")
+            printt("\n\nDr. Linear Equation X_0 :Tsk you're not as bad as you look after all\nYou wont get this one right!\n\n")
             finalscore+=10
             rand1=random.randint(0,99)
             rand2=random.randint(0,99)
             realans2=rand1+rand2
-            printt("Game Console: Question 2:\n")
-            print(rand1,"+",rand2,"=")
-            ans2=int(input())
+            printt("Question 2:\n")
+            print(rand1,"+",rand2,"=",end="")
+            while True:
+                try:
+                    ans2=int(input())
+                    break
+                except:
+                    print("Oops! Invalid Entry, Error:",sys.exc_info()[0])
+                    print(rand1,"+",rand2,"=",end="")
         else:
-            printt("\n\nDr. Linear Equation XD :AHAHHA! YOU'RE A NINCOMPOOP\n\n")
+            printt("\n\nDr. Linear Equation XD :EEEK WRONG ANSWER!\n\n")
             lives=lives-1
-            print("Game Console: Remaning lives=",lives,"\n")
+            print("Game Console: Remaning chances:",lives,"\n")
             finalscore-=5
             continue
         if realans2==ans2:
@@ -78,36 +95,46 @@ def level1():
             rand1=random.randint(0,99)
             rand2=random.randint(0,99)
             rand3=random.randint(0,99)
-            print(rand1,"+",rand2,"-",rand3,"=")
+            printt("Question 3:\n")
+            print(rand1,"+",rand2,"-",rand3,"=",end="")
             realans3=rand1+rand2-rand3
-            ans3=int(input())
+            while True:
+                try:
+                    ans3=int(input())
+                    break
+                except:
+                    print("Oops! Invalid Entry, Error:",sys.exc_info()[0])
+                    print(rand1,"+",rand2,"-",rand3,"=",end="")
         else:
              printt("\n")
              lives=lives-1
-             printt("Dr. Linear Equation XD : HAHAHA I KNEW YOU WOULDNT BE ABLE TO ANSWER THIS ONE ¬ヘ(^∀ ^ )\n\nYOU JUST LOST ONE OF YOUR LIVES x_X\n\n")
-             print("Game Console: Remaning lives=",lives,"\n")
+             printt("Dr. Linear Equation XD : YOU GOT NOTHING ON THIS PH.D, YOU GOT IT WRONG! ¬ヘ(^∀ ^ )\n\n")
+             print("Game Console: Remaning chances:",lives,"\n")
              finalscore-=5
              continue
         if realans3==ans3:
-               printt("Dr. Linear Equation >_< : NOOOOO HOW ARE YOU BETTER THAN ME, UM- THE EXIT IS THAT WAY(⌒_⌒;)\n\n*CONGRATS YOU EMBARRASED THE LINEAR EQUATION MONSTER*\n\n")
+               printt("Dr. Linear Equation >_< : NOOOOO! YOU'RE BETTER THAN ME, UM- THE EXIT IS THAT WAY(⌒_⌒;)\n\n*CONGRATS YOU EMBARRASED THE LINEAR EQUATION MONSTER*\n\n")
                finalscore+=10
                printt("*You now walk towards the exit, a door opens... You walk through a long corridor while you hear a crowd of people,\n")
                printt("You come out the end of the long corridor and what-... YOU'RE IN THE COLOSSEUM!*\n\n")
                break
         else:
-            printt("Dr. Linear Equation ¬ヘ(^∀ ^ ): WHAT A SHAME, YOU GO BACK TO THE FIRST QUESTION XD\nAND YOU LOSE A LIFE X_x ")
+            printt("Dr. Linear Equation XD: WHAT A SHAME, YOU AIN'T AS GOOD AS THIS PH.D! ¬ヘ(^∀ ^ )\n")
             lives=lives-1
-            print("Game Console: Remaning lives=",lives)
+            if lives!=0:
+                printt("Game Console: You will now be taken back to Round 1 with your score reset to 0.\nYou also lose one of your chances. ")
+            print("Game Console: Remaning chances:",lives)
             finalscore=0
             continue
     if lives==0:
-        printt("Dr. Linear Equation XD: HAHA GAME OVER! YOU GET ZERO POINTS TRY AGAIN IF YOU WANT TO LOSE xD")
+        printt("Dr. Linear Equation XD: YOU'RE DONE FOR. YOU GOT THAT WRONG.")
 def level2():
     global finalscore
+    print (finalscore)
     printt("\nMonster 2: Mr. Julius Caesar...\n\n")
     a=input("Your Chaperone ^_^: Enter I if you want to see the instructions to Roman Numerals\n")
     if a=="I" or a=="i":
-        with open("Roman Numeral Instructions.txt") as file2:
+        with open("Roman Numeral Instructions.txt")as file2: 
             for i in file2:
                 printt(i)
         file2.close()
@@ -135,7 +162,6 @@ def level2():
             (c, romanvalue)=(a,b)
             res+=roman*c
         return res
-    global finalscore
     for i in range(0,3):
         global difficulty
         Question=random.randint(1,4000)
@@ -148,12 +174,12 @@ def level2():
                 printt("Julius Caesar @_@: AGH! I UNDERESTIMATED YOU, YOU WONT GET ANOTHER ONE!\n")
                 finalscore+=10
             else:
-                printt("Julius Caesar ~>_<~: YOU BEAT ME IN MY OWN STADIUM! CURSE YOU! THE EXECUTIONER WILL SURELY STOP YOU!")
+                printt("Julius Caesar ~>_<~: YOU BEAT ME IN MY OWN STADIUM! CURSE YOU! THE EXECUTIONER WILL SURELY STOP YOU!\n\n")
                 finalscore+=10
         elif ComputerAnswer != Answer:
             printt("Julius Caesar X): AH HA! EEEEEK WRONG ANSWER! GO HOME TO GRANDMA! XP\n\n")
             if difficulty==1:
-                finalscore-=10
+                finalscore-=9
             elif difficulty==2:
                 finalscore-=7
                 a=input("Enter H for a hint, press any other key to continue:\n")
@@ -172,27 +198,18 @@ def level2():
                     continue
 def level3():
     global finalscore
-    printt("Level 3: The Executioner...")
-    a=input("Your Chaperone ^_^: Enter I if you want to see the instructions to Hangman")
+    printt("\nLevel 3: The Executioner...\n\n")
+    a=input("Your Chaperone ^_^: Enter I if you want to see the instructions to Hangman\n")
     if a=="i" or a=="I":
         with open("Hangman Instructions.txt") as file3:
             for i in file3:
                 printt(i)
         file3.close()
-    else:
-        pass
-    def main():
-        global finalscore
         c=0
         def hangman():
             global finalscore
-            import random
-            '''
-            f = open("t1.txt")
-            #need to import text file onto git?
-            word_list = f.readlines()
-           '''
-            word_list=["School", "Pencil", "Toys", "Notebook"]
+            with open("Hangman Word Pool.txt") as f:
+                word_list=f.read().split()
             choice = random.choice(word_list)
             choice_upper = choice.upper()
             guessed = False
@@ -255,8 +272,7 @@ def level3():
                        |      O
                        |
                        |
-                      _|_
-                       
+                      _|_   
                     """,
                     # initial empty state
                     """
@@ -281,7 +297,6 @@ def level3():
                     error handling if guess length is 1 it is a digit 
                     or alpha and isalpha checks for simply alpha
                     '''
-                    
                     if guess_upper in guessed_letters:
                         printt("Game Console: You have already guessed the letter:")
                         print(guess_upper,"\n")
@@ -292,7 +307,7 @@ def level3():
                         print("Your Chaperone 0_0: Oh no!",'"{}"'.format(guess),"is not in the word!\n")
 
                     else:  # final option- correct guess
-                        print("Your Chaperone :) Good job!", guess_upper, "is in the word!")
+                        print("Your Chaperone :D : Good job!", guess_upper, "is in the word!")
                         guessed_letters.append(guess_upper)
                         placeholder = []
                         index=-1
@@ -311,10 +326,10 @@ def level3():
                #I have to change this logic , loop will never end otherwise
                 elif len(guess) > 1 and guess.isalpha():
                     if guess_upper in guessed_words:
-                        printt("Your Chaperone: You already guessed that word!\n")
+                        printt("Your Chaperone T_T: You already guessed that word!\n")
                         printt(underscores)
                     elif guess_upper != choice_upper:
-                        print(guess, "is not the word!\n")
+                        print("The Executioner XD: ",guess," is not the word!\n")
                         guessed_words.append(guess.upper())
                         tries = tries - 1
                     else:
@@ -324,7 +339,7 @@ def level3():
                     print(" ".join(underscores))
                 else:
                     tries = tries -1
-                    print("Not a valid answer")
+                    printt("The Excutioner: Trying to be smart about this EH!?, THAT IS INVALID.")
                 if guessed==True:
                     print("Congrats you completed round ", c+1,"\n")
                     printt("Well done you got this word!")
@@ -336,27 +351,31 @@ def level3():
             #guess over display where the user is at right now
             if guessed==False:
                 printt("Oh no! You lost this round!\n\n")
-                finalscore-=10
+                if difficulty==1:
+                    finalscore-=9
+                elif difficulty==2:
+                    finalscore-=7
+                elif difficulty==3:
+                    finalscore-=5
             else:
                 if c==0:
-                    printt("0_0 You won this round, I shall spare your chaparone.\n*Your chaparone is released*\n\n")
-                    finalscore+=10 
+                    printt("The Exectutioner: 0_0 You won this round, I shall spare your chaparone.\n*Your chaparone is released*\n\n")
+                    finalscore+=10
                 if c==1:
-                    printt("0_X You won this round, you are spared\n*You are released*\n\n")
-                    finalscore+=10 
+                    printt("The Exectutioner: 0_X You won this round, you are spared\n*You are released*\n\n")
+                    finalscore+=10
                 if c==2:
-                    printt("X_X You won the last round round, You have defeated me, the princess is now free.\n*The princess is released*\n\n")
-                    finalscore+=10 
+                    printt("The Exectutioner: X_X You won the last round round, You have defeated me, the princess is now free.\n*The princess is released*\n\n")
+                    finalscore+=10
         while c<3:
             hangman()
             c=c+1
         else:
             print("Congragulations! You beat the 3 monsters")
-            a==input("Enter Q to quit this screen")
+            a==input("Game Console: Press Enter To Quit This Screen.")
             printt("Thank you for playing your score will be recorded on our leaderboard.")
             printt("Until next time,")
             print(name)
-
 #THIS IS WHERE THE CODE STARTS FROM
 printt("Please Enter The Name Of Your Character: ")
 name=input()
@@ -370,15 +389,15 @@ exitscreen=""
 level1()
 if finalscore>=0:
     level2()
-if finalscore>=20:
+elif finalscore>=20:
     level3()
-    exitscreen=""
 else:
-    printt("You didnt pass the second level, you get trapped in the dungeon with your chaperone and the princess...\n")
-    printt("You shall be eaten soon by the dragon say goodbye!\nGame Over...\n\n")
-    printt("Your final score is: ")
+    printt("Game Console: You didnt pass the level, you get trapped in the dungeon with your chaperone and the princess...\n")
+    printt("Game Console: You shall soon be the dragon supper say goodbye!\n\nGAME OVER...\n\n")
+    printt("Game Console: YOUR SCORE IS: ")
     print(finalscore,"\n\n")
-    exitscreen==input("Enter Q to quit this screen")
-    printt("Thank you for playing your score will be recorded on our leaderboard.\n")
+    exitscreen==input("Game Console: Press Enter To Quit This Screen.")
+    printt("Thank you for playing.\nYour score will be recorded on our leaderboard.\n")
     printt("Until next time, ")
     print(name)
+    time.sleep(5)
