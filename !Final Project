@@ -1,4 +1,4 @@
-import random,sys,time,random
+import random,sys,time,random,mysql.connector
 finalscore=0
 def printt(message):
     for char in message:
@@ -10,7 +10,7 @@ def printt(message):
             else:
                 time.sleep(0)
 def dif():
-    global dic
+    global dic,name
     dic={1:"Hard",2:"Moderate",3:"Easy"}
     while True:
         global lives,difficulty,finalscore,name
@@ -37,9 +37,52 @@ def dif():
                 break
         else:
             printt("Your Chaperone 0_0: Invalid Number Please Pick A Number Between 1 to 3\n")
-    
+def gamecode():
+    printt("Please Enter The Name Of Your Character: ")
+    name=input()
+    print(name,end="")
+    with open("Game Console.txt") as file:
+        for i in file:
+            printt(i)
+    file.close()
+    dif()
+    exitscreen=""
+    level1()
+    if finalscore>=0:
+        level2()
+    elif finalscore>=20:
+        level3()
+    else:
+        printt("Game Console: You didnt pass the level, you get trapped in the dungeon with your chaperone and the princess...\n")
+        printt("Game Console: You shall soon be the dragon supper say goodbye!\n\nGAME OVER...\n\n")
+        printt("Game Console: YOUR SCORE IS: ")
+        print(finalscore,"\n\n")
+        exitscreen==input("Game Console: Press Enter To Quit This Screen.")
+        printt("Thank you for playing.\nYour score will be recorded on our leaderboard.\n")
+        printt("Until next time, ")
+        print(name)
+    mydb=mysql.connector.connect(host="localhost",user="root",passwd="password")
+    mycursor = mydb.cursor()
+    mycursor.execute("use leaderboard;")
+    if difficulty==3:
+        sql="insert into scores(USERNAME,SCORE,DIFFICULTY)values(%s,%s,%s);"
+        values=(name,str(finalscore),"Easy")
+        mycursor.execute(sql,values)
+        mydb.commit()
+    elif difficulty==2:
+        sql="insert into scores(USERNAME,SCORE,DIFFICULTY)values(%s,%s,%s);"
+        values=(name,str(finalscore),"Intermediate")
+        mycursor.execute(sql,values)
+        mydb.commit()
+    elif difficulty==1:
+        sql="insert into scores(USERNAME,SCORE,DIFFICULTY)values(%s,%s,%s);"
+        values=(name,str(finalscore),"Hard")
+        mycursor.execute(sql,values)
+        mydb.commit()
+    time.sleep(2)
+    menuscreen()
 def level1():
-    global finalscore,difficulty
+    global finalscore,difficulty,name
     rand1=0
     rand2=0
     ans1=0
@@ -49,9 +92,9 @@ def level1():
     realans3=0
     ans3=0
     rand3=0
-    printt("Monster 1: Dr. Linear Equation XD...\n\n")
-    printt("Your Chaperone 0_0: Dr. Linear Equation tests your addition skills, there are three difficulties to his questions\n")
-    printt(name)
+    printt("Monster 1: Dr. Linear Equation...\n\n")
+    printt("Your Chaperone 0_0: Dr. Linear Equation tests your addition skills\n")
+    print(name)
     printt(", These are the number of chances you shall recieve: ")
     print(difficulty,"\n")
     global lives
@@ -127,20 +170,21 @@ def level1():
             finalscore=0
             continue
     if lives==0:
-        printt("Dr. Linear Equation XD: YOU'RE DONE FOR. YOU GOT THAT WRONG.")
+        printt("Dr. Linear Equation XD: YOU'RE DONE FOR. YOU GOT THAT WRONG.\n\n")
 def level2():
-    global finalscore
+    global finalscore,difficulty,name
     print (finalscore)
     printt("\nMonster 2: Mr. Julius Caesar...\n\n")
-    a=input("Your Chaperone ^_^: Enter I if you want to see the instructions to Roman Numerals\n")
-    if a=="I" or a=="i":
+    a=input("Your Chaperone ^_^: Enter I if you want to see the instructions to Roman Numerals\nPress Enter to skip hint\n")
+    if (a=="I" or a=="i")and difficulty>1 :
         with open("Roman Numeral Instructions.txt")as file2: 
             for i in file2:
                 printt(i)
         file2.close()
     else:
-        pass
+        printt("Game Console: You chose hard mode XD, No hint for real warriors.\n")
     def roman(romanvalue):
+        global finalscore,difficulty,name
         Romanletters = [
             (1000,'M'),
             (900,'CM'),
@@ -163,7 +207,6 @@ def level2():
             res+=roman*c
         return res
     for i in range(0,3):
-        global difficulty
         Question=random.randint(1,4000)
         ComputerAnswer=roman(Question)
         print("\nRound ",i+1,": ",Question,"\n")
@@ -176,13 +219,14 @@ def level2():
             else:
                 printt("Julius Caesar ~>_<~: YOU BEAT ME IN MY OWN STADIUM! CURSE YOU! THE EXECUTIONER WILL SURELY STOP YOU!\n\n")
                 finalscore+=10
+                level3()
         elif ComputerAnswer != Answer:
             printt("Julius Caesar X): AH HA! EEEEEK WRONG ANSWER! GO HOME TO GRANDMA! XP\n\n")
             if difficulty==1:
                 finalscore-=9
             elif difficulty==2:
                 finalscore-=7
-                a=input("Enter H for a hint, press any other key to continue:\n")
+                a=input("Game Console: Enter H for a hint, press any other key to continue\n")
                 if a=="H" or a=="h":
                     printt("Hint:")
                     print("1000=M\n900=CM\n500=D\n400=CD\n100=C\n90=XC\n50=L\n40=XL\n10=X\n9=IX\n5=V\n4=IV\n1=I")
@@ -197,7 +241,8 @@ def level2():
                 else:
                     continue
 def level3():
-    global finalscore
+    global finalscore,difficulty,name
+    print(finalscore)
     printt("\nLevel 3: The Executioner...\n\n")
     a=input("Your Chaperone ^_^: Enter I if you want to see the instructions to Hangman\n")
     if a=="i" or a=="I":
@@ -376,28 +421,62 @@ def level3():
             printt("Thank you for playing your score will be recorded on our leaderboard.")
             printt("Until next time,")
             print(name)
-#THIS IS WHERE THE CODE STARTS FROM
-printt("Please Enter The Name Of Your Character: ")
-name=input()
-print(name,end="")
-with open("Game Console.txt") as file:
-    for i in file:
-        printt(i)
-file.close()
-dif()
-exitscreen=""
-level1()
-if finalscore>=0:
-    level2()
-elif finalscore>=20:
-    level3()
-else:
-    printt("Game Console: You didnt pass the level, you get trapped in the dungeon with your chaperone and the princess...\n")
-    printt("Game Console: You shall soon be the dragon supper say goodbye!\n\nGAME OVER...\n\n")
-    printt("Game Console: YOUR SCORE IS: ")
-    print(finalscore,"\n\n")
-    exitscreen==input("Game Console: Press Enter To Quit This Screen.")
-    printt("Thank you for playing.\nYour score will be recorded on our leaderboard.\n")
-    printt("Until next time, ")
-    print(name)
-    time.sleep(5)
+def leaderboardview():
+    mydb=mysql.connector.connect(host="localhost",user="root",passwd="password")
+    mycursor=mydb.cursor()
+    printt("1 - Show Entire Leaderboard\n2 - Show Highest Scores\n3 - Back to Main Menu\n")
+    a=int(input())
+    if a==1:
+        mycursor.execute("use leaderboard;")
+        mycursor.execute("select * from scores")
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            print(x)
+        menuscreen()
+    elif a==2:
+        mycursor.execute("use leaderboard;")
+        printt("\n1 - Show Highscores for Hard Mode\n2 - Show Highscores for Intermediate Mode\n3 - Show Highscores for Easy Mode\n4 - Quit to Main Menu\n")
+        try:
+            b=int(input())
+            if b==1:
+                mycursor.execute("""select * from scores where DIFFICULTY="Hard" order by SCORE desc;""")
+                myresult = mycursor.fetchall()
+                for x in myresult:
+                    print(x)
+                print("\n")
+                menuscreen()
+            elif b==2:
+                mycursor.execute("""select * from scores where DIFFICULTY="Intermediate" order by SCORE desc;""")
+                myresult = mycursor.fetchall()
+                for x in myresult:
+                    print(x)
+                print("\n")
+                menuscreen()
+            elif b==3:
+                mycursor.execute("""select * from scores where DIFFICULTY="Easy" order by SCORE desc;""")
+                myresult = mycursor.fetchall()
+                for x in myresult:
+                    print(x)
+                print("\n")
+                menuscreen()
+        except:
+            print("Invalid Entry, Error:",sys.exc_info()[0])
+    elif a==3:
+        menuscreen()
+def menuscreen():
+    printt("\n\nCoolMathGames.com\n\nMain Menu:\n\n")
+    print("1 - Play game\n2 - Leaderboard View\n3 - Quit Game\n")
+    while True:
+        try:
+            z=int(input())
+            break
+        except:
+            print("Invalid Entry, Error:",sys.exc_info()[0])
+    if z==1:
+        gamecode()
+    elif z==2:
+        leaderboardview()
+    elif z==3:
+        quit()
+name=""
+menuscreen()
